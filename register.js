@@ -15,7 +15,7 @@ document.getElementById('registerForm').addEventListener('submit', async (event)
   }
 
   try {
-    const response = await fetch('https://162.33.18.241:27045/register', { // Use HTTPS and correct port
+    const response = await fetch('https://sddmajor.bh-games.com:27045/register', { // Use HTTPS and correct port
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
