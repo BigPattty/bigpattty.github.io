@@ -1,38 +1,61 @@
-document.getElementById('registerForm').addEventListener('submit', async (event) => {
-  event.preventDefault();
+document.addEventListener('DOMContentLoaded', function () {
+    const registerForm = document.getElementById('registerForm');
+    const messageDiv = document.getElementById('message');
 
-  const fullname = document.getElementById('fullname').value;
-  const username = document.getElementById('username').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const confirmpassword = document.getElementById('confirmpassword').value;
-  const messageElement = document.getElementById('message');
+    registerForm.addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent the default form submission
 
-  if (password !== confirmpassword) {
-    messageElement.textContent = 'Passwords do not match';
-    messageElement.className = 'error';
-    return;
-  }
+        // Get form fields values
+        const fullname = document.getElementById('fullname').value;
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmpassword').value;
 
-  try {
-    const response = await fetch('http://sddmajor.bh-games.com:27045/register', { // Use HTTPS and correct port
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ fullname, username, email, password })
+        // Simple client-side validation
+        if (!fullname || !username || !email || !password || !confirmPassword) {
+            showMessage('Please fill in all fields.', 'error');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showMessage('Passwords do not match.', 'error');
+            return;
+        }
+
+        // Create user object
+        const user = {
+            fullname: fullname,
+            username: username,
+            email: email,
+            password: password
+        };
+
+        // Send user data to server for registration
+        fetch('https://162.33.18.241:27045/register', { // Replace with your server address
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (response.ok) {
+                showMessage('Registration successful. Please login.', 'success');
+                registerForm.reset(); // Clear the form fields
+            } else {
+                showMessage('Registration failed. Please try again.', 'error');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            showMessage('An error occurred. Please try again later.', 'error');
+        });
     });
 
-    if (response.ok) {
-      messageElement.textContent = 'Registration successful';
-      messageElement.className = 'success';
-    } else {
-      const error = await response.text();
-      messageElement.textContent = 'Registration failed: ' + error;
-      messageElement.className = 'error';
+    function showMessage(message, messageType) {
+        messageDiv.textContent = message;
+        messageDiv.className = messageType;
+        messageDiv.classList.remove('hidden');
     }
-  } catch (err) {
-    messageElement.textContent = 'An error occurred: ' + err.message;
-    messageElement.className = 'error';
-  }
 });
