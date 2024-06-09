@@ -32,12 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Send user data to server for registration
-        fetch('https://162.33.18.241:27045/register', { // Replace with your server address
+        fetch('https://162.33.18.241:27045/register', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(user)
+            body: JSON.stringify(user),
+            // Disable SSL/TLS certificate validation
+            agent: new https.Agent({ rejectUnauthorized: false })
         })
         .then(response => {
             if (response.ok) {
