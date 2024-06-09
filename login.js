@@ -6,7 +6,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
   const messageElement = document.getElementById('message');
 
   try {
-    const response = await fetch('https://162.33.18.241:27045/login', {
+    const response = await fetch('https://162.33.18.241:443/login', { // Use HTTPS and correct port
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
