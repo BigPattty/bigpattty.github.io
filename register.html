@@ -13,7 +13,7 @@
             <h2>Register for an Account</h2>
             <form id="registerForm" onsubmit="registerUser(event)">
                 <div class="form-group">
-                    <label for="name">Full Name</label>
+                    <label for="fullname">Full Name</label>
                     <input type="text" id="fullname" name="fullname" required>
                 </div>
                 <div class="form-group">
@@ -42,7 +42,7 @@
     </div>
 
     <script>
-        const encryptedPAT = "U2FsdGVkX1+/UXPWrpNu2oasuaPfYKy82Pq9R3yjC79qH1YhMN4EetWjBlJUnDCR/B9kqj5+pI+Ts9E7n7fBVg=="; // Replace with your encrypted token
+        const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Replace with your encrypted token
         const passphrase = 'Patty1703!'; // Same passphrase used for encryption
 
         function decryptToken(token, passphrase) {
@@ -68,7 +68,7 @@
                 fullname: fullname,
                 username: username,
                 email: email,
-                password: password  // Send plain password, it will be hashed by the GitHub Action
+                password: password
             };
 
             const decryptedPAT = decryptToken(encryptedPAT, passphrase);
