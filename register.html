@@ -74,7 +74,7 @@
             const decryptedPAT = decryptToken(encryptedPAT, passphrase);
 
             try {
-                const response = await fetch(`https://api.github.com/repos/YOUR_USERNAME/user_data/issues`, {
+                const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `token ${decryptedPAT}`,
