@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDD Major - Login</title>
-    <link rel="stylesheet" href="css/logreg.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <div class="container">
@@ -44,12 +45,11 @@
                     body: JSON.stringify({ username, password })
                 });
 
-                const result = await response.json();
-
                 if (response.ok) {
+                    const userData = await response.json();
+                    sessionStorage.setItem('username', userData.username); // Save username for session
                     alert('Login successful');
-                    // Redirect to the homepage or dashboard
-                    window.location.href = 'home.html';  // Example redirection
+                    window.location.href = 'portal.html'; // Redirect to the user portal
                 } else {
                     alert('Invalid username or password');
                 }
