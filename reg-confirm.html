@@ -10,8 +10,11 @@
     <div class="container">
         <div class="login-container">
             <h2 id="statusTitle">Registration in Progress</h2>
-            <p>Please wait while we process your registration...</p>
+            <p id="statusSubtitle">Please wait while we process your registration...</p>
             <div id="statusMessage">Checking registration status...</div>
+            <div id="immediateFeedback">
+                <p>Thank you for registering! We're processing your request...</p>
+            </div>
             <div id="loginSection" class="hidden"></div>
         </div>
     </div>
@@ -79,6 +82,7 @@
                                 document.getElementById('statusMessage').textContent = 'Registration successful!';
                                 document.title = 'Registration Complete';
                                 document.getElementById('statusTitle').textContent = 'Registration Complete';
+                                document.getElementById('statusSubtitle').textContent = '';
                                 showLoginSection();
                                 return;
                             } else {
@@ -94,7 +98,7 @@
                         document.getElementById('statusMessage').textContent = 'Registration issue not found.';
                     }
 
-                    setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
+                    setTimeout(() => checkRegistrationStatus(username), 2000); // Poll every 2 seconds
                 } else {
                     const errorResponse = await response.text();
                     console.error('GitHub API error:', errorResponse);
