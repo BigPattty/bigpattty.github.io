@@ -4,23 +4,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration in Progress</title>
     <link rel="stylesheet" href="css/logreg.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
     <div class="container">
         <div class="login-container">
-            <h2>Hold tight!</h2>
-            <p>Our carrier pigeon is on its way...</p>
+            <h2>Registration in Progress</h2>
+            <p>Please wait while we process your registration...</p>
             <div id="statusMessage"></div>
         </div>
     </div>
 
     <script>
+        const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Your encrypted token
+        const passphrase = 'Patty1703!'; // Your passphrase
+
+        function decryptToken(token, passphrase) {
+            const bytes = CryptoJS.AES.decrypt(token, passphrase);
+            return bytes.toString(CryptoJS.enc.Utf8);
+        }
+
         async function checkRegistrationStatus(username) {
             try {
-                const apiUrl = `https://api.github.com/repos/bigpattty/user_data/issues`;
+                const decryptedPAT = decryptToken(encryptedPAT, passphrase);
+                const owner = 'bigpattty';
+                const repo = 'user_data';
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/issues`;
+
+                console.log('Owner:', owner);
+                console.log('Repo:', repo);
                 console.log('Fetching issues from:', apiUrl);
 
-                const response = await fetch(apiUrl);
+                const response = await fetch(apiUrl, {
+                    headers: {
+                        'Authorization': `token ${decryptedPAT}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+
                 if (response.ok) {
                     console.log('Successfully fetched issues.');
                     const issues = await response.json();
@@ -30,7 +51,12 @@
                     if (userIssue) {
                         console.log('Found user issue:', userIssue);
 
-                        const commentsResponse = await fetch(userIssue.comments_url);
+                        const commentsResponse = await fetch(userIssue.comments_url, {
+                            headers: {
+                                'Authorization': `token ${decryptedPAT}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
                         if (commentsResponse.ok) {
                             console.log('Successfully fetched comments.');
                             const comments = await commentsResponse.json();
