@@ -9,9 +9,10 @@
 <body>
     <div class="container">
         <div class="login-container">
-            <h2>Registration in Progress</h2>
+            <h2 id="statusTitle">Registration in Progress</h2>
             <p>Please wait while we process your registration...</p>
-            <div id="statusMessage"></div>
+            <div id="statusMessage">Checking registration status...</div>
+            <div id="loginSection" class="hidden"></div>
         </div>
     </div>
 
@@ -22,6 +23,16 @@
         function decryptToken(token, passphrase) {
             const bytes = CryptoJS.AES.decrypt(token, passphrase);
             return bytes.toString(CryptoJS.enc.Utf8);
+        }
+
+        function showLoginSection() {
+            const loginSection = document.getElementById('loginSection');
+            loginSection.innerHTML = `
+                <h3>Next Steps</h3>
+                <p>Your registration was successful. You can now log in using your credentials.</p>
+                <a href="login.html" class="button">Go to Login Page</a>
+            `;
+            loginSection.classList.remove('hidden');
         }
 
         async function checkRegistrationStatus(username) {
@@ -66,15 +77,21 @@
                             if (successComment) {
                                 console.log('Found success comment:', successComment);
                                 document.getElementById('statusMessage').textContent = 'Registration successful!';
+                                document.title = 'Registration Complete';
+                                document.getElementById('statusTitle').textContent = 'Registration Complete';
+                                showLoginSection();
                                 return;
                             } else {
                                 console.log('Success comment not found.');
+                                document.getElementById('statusMessage').textContent = 'Registration in progress...';
                             }
                         } else {
                             console.error('Failed to fetch comments:', await commentsResponse.text());
+                            document.getElementById('statusMessage').textContent = 'Error fetching comments.';
                         }
                     } else {
                         console.log(`Issue for user ${username} not found.`);
+                        document.getElementById('statusMessage').textContent = 'Registration issue not found.';
                     }
 
                     setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
