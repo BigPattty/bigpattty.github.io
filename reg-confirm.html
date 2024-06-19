@@ -22,11 +22,19 @@
                     const issues = await response.json();
                     const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
 
-                    if (userIssue && userIssue.state === 'closed') {
-                        document.getElementById('statusMessage').textContent = 'Registration successful!';
-                    } else {
-                        setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
+                    if (userIssue) {
+                        const commentsResponse = await fetch(userIssue.comments_url);
+                        if (commentsResponse.ok) {
+                            const comments = await commentsResponse.json();
+                            const successComment = comments.find(comment => comment.body.includes('registered successfully'));
+
+                            if (successComment) {
+                                document.getElementById('statusMessage').textContent = 'Registration successful!';
+                                return;
+                            }
+                        }
                     }
+                    setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
                 } else {
                     console.error('GitHub API error:', await response.json());
                 }
@@ -47,4 +55,3 @@
     </script>
 </body>
 </html>
-
