@@ -1,1 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration in Progress</title>
+    <link rel="stylesheet" href="css/logreg.css">
+</head>
+<body>
+    <div class="container">
+        <div class="login-container">
+            <h2>Registration in Progress</h2>
+            <p>Please wait while we process your registration...</p>
+            <div id="statusMessage"></div>
+        </div>
+    </div>
+
+    <script>
+        async function checkRegistrationStatus(username) {
+            try {
+                const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`);
+                if (response.ok) {
+                    const issues = await response.json();
+                    const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
+
+                    if (userIssue && userIssue.state === 'closed') {
+                        document.getElementById('statusMessage').textContent = 'Registration successful!';
+                    } else {
+                        setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
+                    }
+                } else {
+                    console.error('GitHub API error:', await response.json());
+                }
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const username = params.get('username');
+            if (username) {
+                checkRegistrationStatus(username);
+            } else {
+                document.getElementById('statusMessage').textContent = 'Invalid request.';
+            }
+        });
+    </script>
+</body>
+</html>
 
