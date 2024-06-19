@@ -5,6 +5,14 @@
     <title>Registration in Progress</title>
     <link rel="stylesheet" href="css/logreg.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+        .visible {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
@@ -29,10 +37,10 @@
         }
 
         function hideProgressElements() {
-            document.getElementById('statusTitle').style.display = 'none';
-            document.getElementById('statusSubtitle').style.display = 'none';
-            document.getElementById('statusMessage').style.display = 'none';
-            document.getElementById('immediateFeedback').style.display = 'none';
+            document.getElementById('statusTitle').classList.add('hidden');
+            document.getElementById('statusSubtitle').classList.add('hidden');
+            document.getElementById('statusMessage').classList.add('hidden');
+            document.getElementById('immediateFeedback').classList.add('hidden');
         }
 
         function showLoginSection() {
@@ -44,13 +52,7 @@
                 <a href="login.html" class="button">Go to Login Page</a>
             `;
             loginSection.classList.remove('hidden');
-        }
-
-        function removeImmediateFeedback() {
-            const feedback = document.getElementById('immediateFeedback');
-            if (feedback) {
-                feedback.remove();
-            }
+            loginSection.classList.add('visible');
         }
 
         async function checkRegistrationStatus(username) {
@@ -69,7 +71,6 @@
 
                 if (response.ok) {
                     const issues = await response.json();
-
                     const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
                     if (userIssue) {
                         const commentsResponse = await fetch(userIssue.comments_url, {
@@ -86,7 +87,6 @@
                                 document.title = 'Registration Complete';
                                 document.getElementById('statusTitle').textContent = 'Registration Complete';
                                 document.getElementById('statusSubtitle').textContent = '';
-                                removeImmediateFeedback();
                                 showLoginSection();
                                 return;
                             } else {
