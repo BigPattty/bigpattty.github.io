@@ -28,7 +28,15 @@
             return bytes.toString(CryptoJS.enc.Utf8);
         }
 
+        function hideProgressElements() {
+            document.getElementById('statusTitle').style.display = 'none';
+            document.getElementById('statusSubtitle').style.display = 'none';
+            document.getElementById('statusMessage').style.display = 'none';
+            document.getElementById('immediateFeedback').style.display = 'none';
+        }
+
         function showLoginSection() {
+            hideProgressElements();
             const loginSection = document.getElementById('loginSection');
             loginSection.innerHTML = `
                 <h3>Next Steps</h3>
@@ -83,6 +91,7 @@
                                 document.title = 'Registration Complete';
                                 document.getElementById('statusTitle').textContent = 'Registration Complete';
                                 document.getElementById('statusSubtitle').textContent = '';
+                                removeImmediateFeedback();
                                 showLoginSection();
                                 return;
                             } else {
