@@ -46,16 +46,19 @@
             loginSection.classList.remove('hidden');
         }
 
+        function removeImmediateFeedback() {
+            const feedback = document.getElementById('immediateFeedback');
+            if (feedback) {
+                feedback.remove();
+            }
+        }
+
         async function checkRegistrationStatus(username) {
             try {
                 const decryptedPAT = decryptToken(encryptedPAT, passphrase);
                 const owner = 'bigpattty';
                 const repo = 'user_data';
                 const apiUrl = `https://api.github.com/repos/${owner}/${repo}/issues`;
-
-                console.log('Owner:', owner);
-                console.log('Repo:', repo);
-                console.log('Fetching issues from:', apiUrl);
 
                 const response = await fetch(apiUrl, {
                     headers: {
@@ -65,14 +68,10 @@
                 });
 
                 if (response.ok) {
-                    console.log('Successfully fetched issues.');
                     const issues = await response.json();
-                    console.log('Issues:', issues);
 
                     const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
                     if (userIssue) {
-                        console.log('Found user issue:', userIssue);
-
                         const commentsResponse = await fetch(userIssue.comments_url, {
                             headers: {
                                 'Authorization': `token ${decryptedPAT}`,
@@ -80,13 +79,9 @@
                             }
                         });
                         if (commentsResponse.ok) {
-                            console.log('Successfully fetched comments.');
                             const comments = await commentsResponse.json();
-                            console.log('Comments:', comments);
-
                             const successComment = comments.find(comment => comment.body.includes('registered successfully'));
                             if (successComment) {
-                                console.log('Found success comment:', successComment);
                                 document.getElementById('statusMessage').textContent = 'Registration successful!';
                                 document.title = 'Registration Complete';
                                 document.getElementById('statusTitle').textContent = 'Registration Complete';
@@ -95,26 +90,20 @@
                                 showLoginSection();
                                 return;
                             } else {
-                                console.log('Success comment not found.');
                                 document.getElementById('statusMessage').textContent = 'Registration in progress...';
                             }
                         } else {
-                            console.error('Failed to fetch comments:', await commentsResponse.text());
                             document.getElementById('statusMessage').textContent = 'Error fetching comments.';
                         }
                     } else {
-                        console.log(`Issue for user ${username} not found.`);
                         document.getElementById('statusMessage').textContent = 'Registration issue not found.';
                     }
 
                     setTimeout(() => checkRegistrationStatus(username), 2000); // Poll every 2 seconds
                 } else {
-                    const errorResponse = await response.text();
-                    console.error('GitHub API error:', errorResponse);
-                    document.getElementById('statusMessage').textContent = `GitHub API error: ${errorResponse}`;
+                    document.getElementById('statusMessage').textContent = `GitHub API error: ${response.statusText}`;
                 }
             } catch (error) {
-                console.error('Fetch error:', error);
                 document.getElementById('statusMessage').textContent = `Fetch error: ${error.message}`;
             }
         }
