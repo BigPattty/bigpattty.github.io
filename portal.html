@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Portal</title>
+    <link rel="stylesheet" href="css/portstyle.css">
+</head>
+<body>
+    <header>
+        <h1>Welcome, <span id="username">User</span>!</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="settings.html">Settings</a></li>
+            <li><a href="login.html" onclick="logoutUser(event)">Logout</a></li>
+        </ul>
+    </nav>
+    <main>
+        <p>This is your user-specific dashboard where you can find all your activities and information.</p>
+    </main>
+    <script src="js/portal.js"></script>
+</body>
+</html>
