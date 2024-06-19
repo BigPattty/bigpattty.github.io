@@ -8,8 +8,8 @@
 <body>
     <div class="container">
         <div class="login-container">
-            <h2>Registration in Progress</h2>
-            <p>Please wait while we process your registration...</p>
+            <h2>Hold tight!</h2>
+            <p>Our carrier pigeon is on its way...</p>
             <div id="statusMessage"></div>
         </div>
     </div>
@@ -17,29 +17,49 @@
     <script>
         async function checkRegistrationStatus(username) {
             try {
-                const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`);
-                if (response.ok) {
-                    const issues = await response.json();
-                    const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
+                const apiUrl = `https://api.github.com/repos/bigpattty/user_data/issues`;
+                console.log('Fetching issues from:', apiUrl);
 
+                const response = await fetch(apiUrl);
+                if (response.ok) {
+                    console.log('Successfully fetched issues.');
+                    const issues = await response.json();
+                    console.log('Issues:', issues);
+
+                    const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
                     if (userIssue) {
+                        console.log('Found user issue:', userIssue);
+
                         const commentsResponse = await fetch(userIssue.comments_url);
                         if (commentsResponse.ok) {
+                            console.log('Successfully fetched comments.');
                             const comments = await commentsResponse.json();
-                            const successComment = comments.find(comment => comment.body.includes('registered successfully'));
+                            console.log('Comments:', comments);
 
+                            const successComment = comments.find(comment => comment.body.includes('registered successfully'));
                             if (successComment) {
+                                console.log('Found success comment:', successComment);
                                 document.getElementById('statusMessage').textContent = 'Registration successful!';
                                 return;
+                            } else {
+                                console.log('Success comment not found.');
                             }
+                        } else {
+                            console.error('Failed to fetch comments:', await commentsResponse.text());
                         }
+                    } else {
+                        console.log(`Issue for user ${username} not found.`);
                     }
+
                     setTimeout(() => checkRegistrationStatus(username), 5000); // Poll every 5 seconds
                 } else {
-                    console.error('GitHub API error:', await response.json());
+                    const errorResponse = await response.text();
+                    console.error('GitHub API error:', errorResponse);
+                    document.getElementById('statusMessage').textContent = `GitHub API error: ${errorResponse}`;
                 }
             } catch (error) {
                 console.error('Fetch error:', error);
+                document.getElementById('statusMessage').textContent = `Fetch error: ${error.message}`;
             }
         }
 
