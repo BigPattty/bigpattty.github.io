@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registration in Progress</title>
+    <title>We're on it...</title>
     <link rel="stylesheet" href="css/logreg.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
@@ -17,9 +17,9 @@
 <body>
     <div class="container">
         <div class="login-container">
-            <h2 id="statusTitle">Registration in Progress</h2>
-            <p id="statusSubtitle">Please wait while we process your registration...</p>
-            <div id="statusMessage">Checking registration status...</div>
+            <h2 id="statusTitle">Carrier Pigeon Outbound</h2>
+            <p id="statusSubtitle">Our Carrier Pigeon is on its way to deliver the good news. This could take a while</p>
+            <div id="statusMessage">Confirming Valid Registration</div>
             <div id="immediateFeedback">
                 <p>Thank you for registering! We're processing your request...</p>
             </div>
@@ -29,7 +29,7 @@
 
     <script>
         const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Your encrypted token
-        const passphrase = 'Patty1703!'; // Your passphrase
+        const passphrase = 'Patty1703!';
 
         function decryptToken(token, passphrase) {
             const bytes = CryptoJS.AES.decrypt(token, passphrase);
@@ -47,9 +47,9 @@
             hideProgressElements();
             const loginSection = document.getElementById('loginSection');
             loginSection.innerHTML = `
-                <h3>Next Steps</h3>
-                <p>Your registration was successful. You can now log in using your credentials.</p>
-                <a href="login.html" class="button">Go to Login Page</a>
+                <h3>Great News!</h3>
+                <p>Your now signed up! Now go on, give your new account a go!</p>
+                <a href="login.html" class="button">Login</a>
             `;
             loginSection.classList.remove('hidden');
             loginSection.classList.add('visible');
@@ -83,23 +83,23 @@
                             const comments = await commentsResponse.json();
                             const successComment = comments.find(comment => comment.body.includes('registered successfully'));
                             if (successComment) {
-                                document.getElementById('statusMessage').textContent = 'Registration successful!';
+                                document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
                                 document.title = 'Registration Complete';
-                                document.getElementById('statusTitle').textContent = 'Registration Complete';
+                                document.getElementById('statusTitle').textContent = 'Great News!';
                                 document.getElementById('statusSubtitle').textContent = '';
                                 showLoginSection();
                                 return;
                             } else {
-                                document.getElementById('statusMessage').textContent = 'Registration in progress...';
+                                document.getElementById('statusMessage').textContent = "Awaiting carrier pigeon's return";
                             }
                         } else {
-                            document.getElementById('statusMessage').textContent = 'Error fetching comments.';
+                            document.getElementById('statusMessage').textContent = 'Oh no, it looks like the pigeon got caught in some misfire. Maybe try again later!';
                         }
                     } else {
-                        document.getElementById('statusMessage').textContent = 'Registration issue not found.';
+                        document.getElementById('statusMessage').textContent = 'It looks like the pigeon got lost. Maybe try again later.';
                     }
 
-                    setTimeout(() => checkRegistrationStatus(username), 2000); // Poll every 2 seconds
+                    setTimeout(() => checkRegistrationStatus(username), 1000);
                 } else {
                     document.getElementById('statusMessage').textContent = `GitHub API error: ${response.statusText}`;
                 }
@@ -114,7 +114,7 @@
             if (username) {
                 checkRegistrationStatus(username);
             } else {
-                document.getElementById('statusMessage').textContent = 'Invalid request.';
+                document.getElementById('statusMessage').textContent = "Hold on, your registration doesn't look right... How about you try that again!";
             }
         });
     </script>
