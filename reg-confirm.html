@@ -165,6 +165,7 @@
         }
 
         async function checkRegistrationStatus(username) {
+            console.log('Checking registration status for:', username);
             try {
                 const decryptedPAT = decryptToken(encryptedPAT, passphrase);
                 const owner = 'bigpattty';
@@ -178,12 +179,18 @@
                     }
                 });
 
+                console.log('Fetch response status:', response.status);
+
                 if (response.ok) {
                     const data = await response.json();
+                    console.log('Workflow runs data:', data);
+
                     const latestRun = data.workflow_runs.find(run => run.head_commit.message.includes(`Add user ${username}`));
+                    console.log('Latest run:', latestRun);
 
                     if (latestRun) {
                         const { conclusion, status } = latestRun;
+                        console.log('Run conclusion:', conclusion, 'Run status:', status);
 
                         if (conclusion === 'success' && status === 'completed') {
                             document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
@@ -215,6 +222,7 @@
                     showErrorSection();
                 }
             } catch (error) {
+                console.error('Fetch error:', error);
                 document.getElementById('statusMessage').textContent = `Fetch error: ${error.message}`;
                 hideProgressElements();
                 document.getElementById('crossmarkIndicator').classList.add('visible');
