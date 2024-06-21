@@ -207,7 +207,7 @@
                         document.getElementById('statusMessage').textContent = 'It looks like the pigeon got lost. Maybe try again later.';
                     }
 
-                    setTimeout(() => checkRegistrationStatus(username), 500); // Reduced interval to 500 milliseconds
+                    setTimeout(() => checkRegistrationStatus(username), 10000); // Polling interval set to 10 seconds
                 } else {
                     document.getElementById('statusMessage').textContent = `GitHub API error: ${response.statusText}`;
                     hideProgressElements();
