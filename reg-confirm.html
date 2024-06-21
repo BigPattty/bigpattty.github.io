@@ -101,7 +101,7 @@
         <div class="login-container">
             <h2 id="statusTitle">Carrier Pigeon Outbound</h2>
             <p id="statusSubtitle">Our Carrier Pigeon is on its way to deliver the good news. This could take a while</p>
-            <div id="statusMessage">Confirming Valid Registration</div>
+            <div id="statusMessage">Waiting for registration process to complete...</div>
             <div id="loadingIndicator" class="loading"></div>
             <div id="checkmarkIndicator" class="checkmark"></div>
             <div id="crossmarkIndicator" class="crossmark"></div>
@@ -234,7 +234,8 @@
             const params = new URLSearchParams(window.location.search);
             const username = params.get('username');
             if (username) {
-                checkRegistrationStatus(username);
+                // Initial delay before starting polling
+                setTimeout(() => checkRegistrationStatus(username), 16000);
             } else {
                 document.getElementById('statusMessage').textContent = "Hold on, your registration doesn't look right... How about you try that again!";
             }
