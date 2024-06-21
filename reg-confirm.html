@@ -12,71 +12,6 @@
         .visible {
             display: block;
         }
-        .loading {
-            margin: 20px auto;
-            border: 16px solid #f3f3f3;
-            border-radius: 50%;
-            border-top: 16px solid #3498db;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        .checkmark, .crossmark {
-            display: none;
-            width: 120px;
-            height: 120px;
-            margin: 20px auto;
-            border-radius: 50%;
-            position: relative;
-        }
-        .checkmark {
-            background-color: #4CAF50;
-        }
-        .crossmark {
-            background-color: #f44336;
-        }
-        .checkmark::before, .crossmark::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 20px;
-            border: solid white;
-        }
-        .checkmark::before {
-            top: 40%;
-            left: 30%;
-            border-width: 0 0 8px 8px;
-            transform: rotate(-45deg);
-        }
-        .crossmark::before {
-            top: 45%;
-            left: 30%;
-            border-width: 0 0 8px 8px;
-            transform: rotate(45deg);
-        }
-        .crossmark::after {
-            content: '';
-            position: absolute;
-            top: 45%;
-            left: 30%;
-            width: 40px;
-            height: 20px;
-            border: solid white;
-            border-width: 0 0 8px 8px;
-            transform: rotate(-45deg);
-        }
-        .checkmark.visible, .crossmark.visible {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
     </style>
 </head>
 <body>
@@ -85,9 +20,6 @@
             <h2 id="statusTitle">Carrier Pigeon Outbound</h2>
             <p id="statusSubtitle">Our Carrier Pigeon is on its way to deliver the good news. This could take a while</p>
             <div id="statusMessage">Confirming Valid Registration</div>
-            <div id="loadingIndicator" class="loading"></div>
-            <div id="checkmarkIndicator" class="checkmark"></div>
-            <div id="crossmarkIndicator" class="crossmark"></div>
             <div id="immediateFeedback">
                 <p>Thank you for registering! We're processing your request...</p>
             </div>
@@ -140,10 +72,9 @@
                 const decryptedPAT = decryptToken(encryptedPAT, passphrase);
                 const owner = 'bigpattty';
                 const repo = 'user_data';
-                const workflowId = 'register.yml'; // Your workflow filename or ID
-                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/actions/runs?event=issues&status=completed`;
+                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/issues`;
 
-                const response = await fetch(apiUrl, {
+                const response = await fetch(runApiUrl, {
                     headers: {
                         'Authorization': `token ${decryptedPAT}`,
                         'Accept': 'application/vnd.github.v3+json'
@@ -151,29 +82,30 @@
                 });
 
                 if (response.ok) {
-                    const data = await response.json();
-                    const latestRun = data.workflow_runs.find(run => run.head_commit.message.includes(`Add user ${username}`));
-
-                    if (latestRun) {
-                        const { conclusion, status } = latestRun;
-
-                        if (conclusion === 'success' && status === 'completed') {
-                            document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
-                            document.title = 'Registration Complete';
-                            document.getElementById('statusTitle').textContent = 'Great News!';
-                            document.getElementById('statusSubtitle').textContent = '';
-                            hideProgressElements();
-                            document.getElementById('checkmarkIndicator').classList.add('visible');
-                            showLoginSection();
-                            return;
-                        } else if (status === 'in_progress' || status === 'queued') {
-                            document.getElementById('statusMessage').textContent = "Awaiting carrier pigeon's return";
+                    const issues = await response.json();
+                    const userIssue = issues.find(issue => issue.title === `Register user ${username}`);
+                    if (userIssue) {
+                        const commentsResponse = await fetch(userIssue.comments_url, {
+                            headers: {
+                                'Authorization': `token ${decryptedPAT}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
+                        if (commentsResponse.ok) {
+                            const comments = await commentsResponse.json();
+                            const successComment = comments.find(comment => comment.body.includes('registered successfully'));
+                            if (successComment) {
+                                document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
+                                document.title = 'Registration Complete';
+                                document.getElementById('statusTitle').textContent = 'Great News!';
+                                document.getElementById('statusSubtitle').textContent = '';
+                                showLoginSection();
+                                return;
+                            } else {
+                                document.getElementById('statusMessage').textContent = "Awaiting carrier pigeon's return";
+                            }
                         } else {
-                            document.getElementById('statusMessage').textContent = "Registration failed. Please try again.";
-                            hideProgressElements();
-                            document.getElementById('crossmarkIndicator').classList.add('visible');
-                            showErrorSection();
-                            return;
+                            document.getElementById('statusMessage').textContent = 'Oh no, it looks like the pigeon got caught in some misfire. Maybe try again later!';
                         }
                     } else {
                         document.getElementById('statusMessage').textContent = 'It looks like the pigeon got lost. Maybe try again later.';
