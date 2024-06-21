@@ -1,13 +1,27 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', () => {
     const username = sessionStorage.getItem('username');
+
     if (!username) {
-        window.location.href = 'login.html'; // Redirect to login if not logged in
+        // Redirect to login if not logged in
+        window.location.href = 'login.html';
+        return;
     }
-    document.getElementById('username').textContent = username;
+
+    // Set username in the header
+    const usernameElement = document.getElementById('username');
+    if (usernameElement) {
+        usernameElement.textContent = username;
+    } else {
+        console.error('Username element not found.');
+    }
 });
 
 function logoutUser(event) {
     event.preventDefault();
+    
+    // Clear session storage
     sessionStorage.clear();
-    window.location.href = 'login.html'; // Redirect to login after logout
+    
+    // Redirect to login after logout
+    window.location.href = 'login.html';
 }
