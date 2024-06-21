@@ -6,6 +6,23 @@
     <link rel="stylesheet" href="css/logreg.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+        }
         .hidden {
             display: none;
         }
@@ -110,6 +127,8 @@
                 const element = document.getElementById(id);
                 if (element) {
                     element.classList.add('hidden');
+                } else {
+                    console.error(`Element with id ${id} not found.`);
                 }
             });
         }
