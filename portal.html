@@ -47,6 +47,21 @@
             </div>
         </div>
     </main>
-    <script src="js/portal.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const username = sessionStorage.getItem('username');
+            if (username) {
+                document.getElementById('username').textContent = username;
+            } else {
+                window.location.href = 'login.html'; // Redirect to login if username not found
+            }
+        });
+
+        function logoutUser(event) {
+            event.preventDefault();
+            sessionStorage.removeItem('username'); // Clear username from session storage
+            window.location.href = 'login.html'; // Redirect to login page
+        }
+    </script>
 </body>
 </html>
