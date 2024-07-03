@@ -17,6 +17,7 @@ body {
 .container {
     position: relative;
     width: 100%;
+    max-width: 600px;
 }
 
 .login-container {
@@ -24,11 +25,8 @@ body {
     padding: 40px 30px;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px; /* Increased max-width */
     text-align: center;
-    align-items: center;
-    margin: 0 auto; /* Center the container */
+    margin: 0 auto;
 }
 
 .logo {
@@ -45,6 +43,7 @@ h2 {
 
 .form-group {
     margin-bottom: 20px;
+    text-align: left;
 }
 
 label {
@@ -55,6 +54,7 @@ label {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"] {
     width: 100%;
     padding: 12px 15px;
@@ -66,6 +66,7 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
+input[type="email"]:focus,
 input[type="password"]:focus {
     border-color: #4a90e2;
     outline: none;
@@ -91,8 +92,11 @@ button:hover {
     margin-top: 20px;
     padding: 12px;
     border-radius: 5px;
-    display: none;
     font-size: 16px;
+}
+
+.hidden {
+    display: none;
 }
 
 #message.success {
@@ -105,7 +109,6 @@ button:hover {
     background-color: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
-    
 }
 
 .register-link {
@@ -121,67 +124,4 @@ button:hover {
 
 .register-link a:hover {
     color: #f06;
-}
-
-.login-link {
-    margin-top: 20px;
-}
-
-.login-link a {
-    color: #4a90e2;
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.3s;
-}
-
-.login-link a:hover {
-    color: #f06;
-}
-
-.hidden {
-    display: none;
-}
-
-#loginSection {
-    margin-top: 30px;
-    text-align: center;
-}
-
-#loginSection h3 {
-    margin-bottom: 20px;
-    font-size: 22px;
-    color: #4CAF50;
-}
-
-#loginSection p {
-    margin-bottom: 20px;
-    font-size: 18px;
-    color: #333;
-}
-
-#loginSection .button {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-}
-
-#loginSection .button:hover {
-    background-color: #45a049;
-}
-
-#immediateFeedback {
-    margin-top: 20px;
-    padding: 12px;
-    background-color: #e0f7fa;
-    border-radius: 5px;
-    font-size: 16px;
-    color: #00796b;
-    border: 1px solid #b2dfdb;
 }
