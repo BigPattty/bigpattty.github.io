@@ -55,8 +55,9 @@
                         window.location.href = 'portal.html'; // Redirect to the user portal
                     }, 2000);
                 } else {
+                    const errorData = await response.json();
                     messageElement.className = 'error';
-                    messageElement.textContent = 'Invalid username or password';
+                    messageElement.textContent = errorData.message || 'Invalid username or password';
                     messageElement.classList.remove('hidden');
                 }
             } catch (error) {
