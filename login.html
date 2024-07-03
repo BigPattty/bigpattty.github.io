@@ -34,6 +34,7 @@
 
             const username = document.getElementById('username').value;
             const password = document.getElementById('password').value;
+            const messageElement = document.getElementById('message');
 
             try {
                 const response = await fetch('https://login-data-04911d02a754.herokuapp.com/login', {
@@ -47,14 +48,22 @@
                 if (response.ok) {
                     const userData = await response.json();
                     sessionStorage.setItem('username', userData.username); // Save username for session
-                    alert('Login successful');
-                    window.location.href = 'portal.html'; // Redirect to the user portal
+                    messageElement.className = 'success';
+                    messageElement.textContent = 'Login successful. Redirecting...';
+                    messageElement.classList.remove('hidden');
+                    setTimeout(() => {
+                        window.location.href = 'portal.html'; // Redirect to the user portal
+                    }, 2000);
                 } else {
-                    alert('Invalid username or password');
+                    messageElement.className = 'error';
+                    messageElement.textContent = 'Invalid username or password';
+                    messageElement.classList.remove('hidden');
                 }
             } catch (error) {
                 console.error('Error:', error);
-                alert('Error logging in');
+                messageElement.className = 'error';
+                messageElement.textContent = 'Error logging in';
+                messageElement.classList.remove('hidden');
             }
         }
     </script>
