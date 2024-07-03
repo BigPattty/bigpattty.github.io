@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SDD Major - Register</title>
     <link rel="stylesheet" href="css/logreg.css">
@@ -10,28 +9,27 @@
 <body>
     <div class="container">
         <div class="login-container">
-            <img src="logo.png" alt="Logo" class="logo">
             <h2>Register for an Account</h2>
             <form id="registerForm" onsubmit="registerUser(event)">
                 <div class="form-group">
+                    <input type="text" id="fullname" name="fullname" required placeholder=" ">
                     <label for="fullname">Full Name</label>
-                    <input type="text" id="fullname" name="fullname" required>
                 </div>
                 <div class="form-group">
+                    <input type="text" id="username" name="username" required placeholder=" ">
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username" required>
                 </div>
                 <div class="form-group">
+                    <input type="email" id="email" name="email" required placeholder=" ">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="form-group">
+                    <input type="password" id="password" name="password" required placeholder=" ">
                     <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
                 </div>
                 <div class="form-group">
+                    <input type="password" id="confirmpassword" name="confirmpassword" required placeholder=" ">
                     <label for="confirmpassword">Confirm Password</label>
-                    <input type="password" id="confirmpassword" name="confirmpassword" required>
                 </div>
                 <button type="submit">Register</button>
             </form>
