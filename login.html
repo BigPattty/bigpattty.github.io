@@ -47,12 +47,12 @@
     
                 if (response.ok) {
                     const userData = await response.json();
-                    sessionStorage.setItem('username', userData.username); // Save username for session
+                    sessionStorage.setItem('username', userData.username);
                     messageElement.className = 'success';
                     messageElement.textContent = 'Login successful. Redirecting...';
                     messageElement.classList.remove('hidden');
                     setTimeout(() => {
-                        window.location.href = 'portal.html'; // Redirect to the user portal
+                        window.location.href = 'portal.html';l
                     }, 2000);
                 } else {
                     const errorData = await response.json();
