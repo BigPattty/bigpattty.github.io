@@ -108,7 +108,7 @@ main {
     color: #333;
 }
 
-.button {
+button {
     background: #ff6347;
     color: #fff;
     border: none;
@@ -121,11 +121,11 @@ main {
     text-decoration: none;
 }
 
-.button:hover {
+button:hover {
     background-color: #e5533d;
 }
 
-.button a {
+button a {
     text-decoration: none;
     color: white;
 }
