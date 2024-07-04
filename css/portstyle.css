@@ -130,17 +130,17 @@ button a {
     color: white;
 }
 
-h1 {
+.merror-h1 {
     font-size: 144px;
     color: white;
 }
 
-h2 {
+.merror-h2 {
     font-size: 40px;
     color: white;
 }
 
-p {
+.merror-p {
     font-size: 20px;
     color: white;
 }
