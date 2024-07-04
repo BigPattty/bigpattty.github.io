@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    // Set username in the header
     const usernameElement = document.getElementById('username');
     if (usernameElement) {
         usernameElement.textContent = username;
