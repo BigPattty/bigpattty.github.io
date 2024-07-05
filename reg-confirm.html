@@ -5,6 +5,7 @@
     <title>We're on it...</title>
     <link rel="stylesheet" href="css/logreg.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- The below stylesheet is only here because it is specific to this html code. Made it easier in the long run -->
     <style>
         body {
             display: flex;
@@ -100,8 +101,9 @@
     <div class="container">
         <div class="login-container">
             <h2 id="statusTitle">Carrier Pigeon Outbound</h2>
-            <p id="statusSubtitle">Our Carrier Pigeon is on its way to deliver the good news. This could take a while</p>
-            <div id="statusMessage">Waiting for registration process to complete...</div>
+            <p id="statusSubtitle"></p>
+            <br>
+            <div id="statusMessage">Awaiting registration proceess</div>
             <div id="loadingIndicator" class="loading"></div>
             <div id="checkmarkIndicator" class="checkmark"></div>
             <div id="crossmarkIndicator" class="crossmark"></div>
@@ -113,6 +115,7 @@
     </div>
 
     <script>
+        // Encrypting the Github PAT (Personal Access Token) for security.
         const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Your encrypted token
         const passphrase = 'Patty1703!';
 
@@ -163,7 +166,8 @@
                 console.error('Login section element not found.');
             }
         }
-
+        
+        // Connects to the Github API to check the registration process.
         async function checkRegistrationStatus(username) {
             console.log('Checking registration status for:', username);
             try {
