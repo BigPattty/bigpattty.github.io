@@ -4,8 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>We're on it...</title>
     <link rel="stylesheet" href="css/logreg.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <!-- The below stylesheet is only here because it is specific to this html code. Made it easier in the long run -->
     <style>
         body {
             display: flex;
@@ -43,53 +41,26 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        .checkmark, .crossmark {
+        .checkmark {
             display: none;
             width: 120px;
             height: 120px;
             margin: 20px auto;
             border-radius: 50%;
-            position: relative;
-        }
-        .checkmark {
             background-color: #4CAF50;
-        }
-        .crossmark {
-            background-color: #f44336;
-        }
-        .checkmark::before, .crossmark::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 20px;
-            border: solid white;
+            position: relative;
+            animation: fadeIn 0.5s ease-in-out;
         }
         .checkmark::before {
-            top: 40%;
-            left: 30%;
-            border-width: 0 0 8px 8px;
-            transform: rotate(-45deg);
-        }
-        .crossmark::before {
-            top: 45%;
-            left: 30%;
-            border-width: 0 0 8px 8px;
-            transform: rotate(45deg);
-        }
-        .crossmark::after {
             content: '';
             position: absolute;
-            top: 45%;
-            left: 30%;
             width: 40px;
             height: 20px;
             border: solid white;
             border-width: 0 0 8px 8px;
+            top: 40%;
+            left: 30%;
             transform: rotate(-45deg);
-        }
-        .checkmark.visible, .crossmark.visible {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -103,10 +74,9 @@
             <h2 id="statusTitle">Carrier Pigeon Outbound</h2>
             <p id="statusSubtitle"></p>
             <br>
-            <div id="statusMessage">Awaiting registration proceess</div>
+            <div id="statusMessage">Awaiting registration process</div>
             <div id="loadingIndicator" class="loading"></div>
             <div id="checkmarkIndicator" class="checkmark"></div>
-            <div id="crossmarkIndicator" class="crossmark"></div>
             <div id="immediateFeedback">
                 <p>Thank you for registering! We're processing your request...</p>
             </div>
@@ -115,15 +85,6 @@
     </div>
 
     <script>
-        // Encrypting the Github PAT (Personal Access Token) for security.
-        const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Your encrypted token
-        const passphrase = 'Patty1703!';
-
-        function decryptToken(token, passphrase) {
-            const bytes = CryptoJS.AES.decrypt(token, passphrase);
-            return bytes.toString(CryptoJS.enc.Utf8);
-        }
-
         function hideProgressElements() {
             const elements = ['statusTitle', 'statusSubtitle', 'statusMessage', 'immediateFeedback', 'loadingIndicator'];
             elements.forEach(id => {
@@ -152,98 +113,15 @@
             }
         }
 
-        function showErrorSection() {
+        setTimeout(() => {
+            document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
+            document.title = 'Registration Complete';
+            document.getElementById('statusTitle').textContent = 'Great News!';
+            document.getElementById('statusSubtitle').textContent = '';
             hideProgressElements();
-            const loginSection = document.getElementById('loginSection');
-            if (loginSection) {
-                loginSection.innerHTML = `
-                    <h3>Registration Failed</h3>
-                    <p>Something went wrong during your registration. Please try again.</p>
-                `;
-                loginSection.classList.remove('hidden');
-                loginSection.classList.add('visible');
-            } else {
-                console.error('Login section element not found.');
-            }
-        }
-        
-        // Connects to the Github API to check the registration process.
-        async function checkRegistrationStatus(username) {
-            console.log('Checking registration status for:', username);
-            try {
-                const decryptedPAT = decryptToken(encryptedPAT, passphrase);
-                const owner = 'bigpattty';
-                const repo = 'user_data';
-                const apiUrl = `https://api.github.com/repos/${owner}/${repo}/actions/runs?event=issues&status=completed`;
-
-                const response = await fetch(apiUrl, {
-                    headers: {
-                        'Authorization': `token ${decryptedPAT}`,
-                        'Accept': 'application/vnd.github.v3+json'
-                    }
-                });
-
-                console.log('Fetch response status:', response.status);
-
-                if (response.ok) {
-                    const data = await response.json();
-                    console.log('Workflow runs data:', data);
-
-                    const latestRun = data.workflow_runs.find(run => run.head_commit.message.includes(`Add user ${username}`));
-                    console.log('Latest run:', latestRun);
-
-                    if (latestRun) {
-                        const { conclusion, status } = latestRun;
-                        console.log('Run conclusion:', conclusion, 'Run status:', status);
-
-                        if (conclusion === 'success' && status === 'completed') {
-                            document.getElementById('statusMessage').textContent = 'The carrier pigeon has returned';
-                            document.title = 'Registration Complete';
-                            document.getElementById('statusTitle').textContent = 'Great News!';
-                            document.getElementById('statusSubtitle').textContent = '';
-                            hideProgressElements();
-                            document.getElementById('checkmarkIndicator').classList.add('visible');
-                            showLoginSection();
-                            return;
-                        } else if (status === 'in_progress' || status === 'queued') {
-                            document.getElementById('statusMessage').textContent = "Awaiting carrier pigeon's return";
-                        } else {
-                            document.getElementById('statusMessage').textContent = "Registration failed. Please try again.";
-                            hideProgressElements();
-                            document.getElementById('crossmarkIndicator').classList.add('visible');
-                            showErrorSection();
-                            return;
-                        }
-                    } else {
-                        document.getElementById('statusMessage').textContent = 'It looks like the pigeon got lost. Maybe try again later.';
-                    }
-
-                    setTimeout(() => checkRegistrationStatus(username), 10000);
-                } else {
-                    document.getElementById('statusMessage').textContent = `GitHub API error: ${response.statusText}`;
-                    hideProgressElements();
-                    document.getElementById('crossmarkIndicator').classList.add('visible');
-                    showErrorSection();
-                }
-            } catch (error) {
-                console.error('Fetch error:', error);
-                document.getElementById('statusMessage').textContent = `Fetch error: ${error.message}`;
-                hideProgressElements();
-                document.getElementById('crossmarkIndicator').classList.add('visible');
-                showErrorSection();
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const params = new URLSearchParams(window.location.search);
-            const username = params.get('username');
-            if (username) {
-                // Initial delay before starting polling
-                setTimeout(() => checkRegistrationStatus(username), 16000);
-            } else {
-                document.getElementById('statusMessage').textContent = "Hold on, your registration doesn't look right... How about you try that again!";
-            }
-        });
+            document.getElementById('checkmarkIndicator').classList.add('visible');
+            showLoginSection();
+        }, 10000); // Wait for 18 seconds
     </script>
 </body>
 </html>
