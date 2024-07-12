@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Portal</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!--Fonts from the internet-->
     <link rel="stylesheet" href="css/portstyle.css">
 </head>
 <body>
@@ -47,21 +47,6 @@
             </div>
         </div>
     </main>
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            const username = sessionStorage.getItem('username');
-            if (username) {
-                document.getElementById('username').textContent = username;
-            } else {
-                window.location.href = 'login.html'; // Redirect to login if username not found
-            }
-        });
-
-        function logoutUser(event) {
-            event.preventDefault();
-            sessionStorage.removeItem('username'); // Clear username from session storage
-            window.location.href = 'login.html'; // Redirect to login page
-        }
-    </script>
+    <script src="portal.js"></script>
 </body>
 </html>
