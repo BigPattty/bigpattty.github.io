@@ -1,0 +1,163 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+header {
+    background-color: #000;
+    color: #fff;
+    padding: 1em 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav li {
+    margin: 0 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #ff6347;
+}
+
+.hero {
+    background-image: url('secure-background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #fff;
+    padding: 0 20px;
+    transition: background-image 0.5s ease-in-out;
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin: 0;
+    text-shadow: 2px 2px 4px #000;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.hero p {
+    font-size: 24px;
+    margin: 10px 0;
+    text-shadow: 1px 1px 2px #000;
+    animation: fadeIn 2.5s ease-in-out;
+}
+
+.download-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 30px;
+    background-color: #f7f7f7;
+    border-top: 3px solid #000;
+}
+
+.download-section h2 {
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.download-section p {
+    width: 100%;
+    max-width: 800px;
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.download-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.download-section ul li {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.download-button {
+    background: #ff6347;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    margin-top: 20px;
+}
+
+.download-button:hover {
+    background-color: #e5533d;
+}
+
+footer {
+    background-color: #000;
+    color: #fff;
+    padding: 1em;
+    text-align: center;
+    margin-top: auto;
+    font-size: 15px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
