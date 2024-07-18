@@ -133,6 +133,9 @@ nav a:hover {
 
 .content-box .image {
     order: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .content-box:nth-child(even) .text {
@@ -145,6 +148,8 @@ nav a:hover {
 
 .content-box img {
     width: 100%;
+    max-width: 300px; /* Ensure all images have the same max width */
+    height: auto; /* Maintain aspect ratio */
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
