@@ -101,17 +101,48 @@ nav a:hover {
     text-align: center;
 }
 
-.download-section ul {
-    list-style-type: disc;
-    padding-left: 20px;
-    margin-bottom: 20px;
-    text-align: left;
+.content-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s ease;
 }
 
-.download-section ul li {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 10px;
+.content-box.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.content-box .text, .content-box .image {
+    flex: 1;
+    padding: 20px;
+}
+
+.content-box .text {
+    order: 1;
+}
+
+.content-box .image {
+    order: 2;
+}
+
+.content-box:nth-child(even) .text {
+    order: 2;
+}
+
+.content-box:nth-child(even) .image {
+    order: 1;
+}
+
+.content-box img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .download-button {
