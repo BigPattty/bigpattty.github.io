@@ -175,3 +175,7 @@ footer {
         opacity: 1;
     }
 }
+
+.active {
+    color: #ff6347;
+}
