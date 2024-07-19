@@ -2,13 +2,15 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+    background: linear-gradient(135deg, #1e3c72, #2a5298, #5e60ce, #7209b7);
     background-size: 400% 400%;
     animation: gradientAnimation 15s ease infinite;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     padding-top: 80px;
+    padding-left: 10%;
+    padding-right: 10%;
 }
 
 header {
@@ -23,7 +25,7 @@ header {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-nav ul {
+nav.links ul {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -31,22 +33,26 @@ nav ul {
     justify-content: center;
 }
 
-nav li {
+nav.links li {
     margin: 0 20px;
 }
 
-nav a {
+nav.links a {
     color: #fff;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s;
 }
 
-nav a:hover {
+nav.links a:hover {
     color: #ff6347;
 }
 
-.hero {
+nav.links .active {
+    color: #ff6347;
+}
+
+.main-bit {
     background-image: url('secure-background.jpg');
     background-size: cover;
     background-position: center;
@@ -61,14 +67,14 @@ nav a:hover {
     transition: background-image 0.5s ease-in-out;
 }
 
-.hero h1 {
+.main-bit h1 {
     font-size: 48px;
     margin: 0;
     text-shadow: 2px 2px 4px #000;
     animation: fadeIn 2s ease-in-out;
 }
 
-.hero p {
+.main-bit p {
     font-size: 24px;
     margin: 10px 0;
     text-shadow: 1px 1px 2px #000;
@@ -76,70 +82,73 @@ nav a:hover {
 }
 
 .download-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 30px;
-    background-color: #f7f7f7;
+    padding: 40px 20px;
+    background-color: #fff;
     border-top: 3px solid #000;
+    max-width: 600px;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 .download-section h2 {
-    width: 100%;
     text-align: center;
     font-size: 32px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     color: #333;
 }
 
 .download-section p {
-    width: 100%;
-    max-width: 800px;
     font-size: 18px;
     color: #666;
+    line-height: 1.6;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.content-box {
+.info {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 800px;
-    margin-bottom: 40px;
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     opacity: 0;
     transform: translateY(100px);
     transition: all 1s ease;
 }
 
-.content-box.visible {
+.info.visible {
     opacity: 1;
     transform: translateY(0);
 }
 
-.content-box .text, .content-box .image {
+.info .text, .info .image {
     flex: 1;
     padding: 20px;
 }
 
-.content-box .text {
+.info .text {
     order: 1;
 }
 
-.content-box .image {
+.info .image {
     order: 2;
 }
 
-.content-box:nth-child(even) .text {
+.info:nth-child(even) .text {
     order: 2;
 }
 
-.content-box:nth-child(even) .image {
+.info:nth-child(even) .image {
     order: 1;
 }
 
-.content-box img {
+.info img {
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -191,8 +200,4 @@ footer {
     100% {
         background-position: 0% 50%;
     }
-}
-
-.active {
-    color: #ff6347;
 }
