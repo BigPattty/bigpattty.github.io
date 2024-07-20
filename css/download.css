@@ -1,6 +1,5 @@
-/* General styles for the body */
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(135deg, #1d3492, #f3c96f);
@@ -8,190 +7,218 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    padding-top: 80px; /* Space for the fixed header */
+    padding-top: 80px;
 }
 
-/* Styles for the header and navigation */
 header {
-    background-color: #000; /* Black background for the header */
-    color: #fff; /* White text color */
-    padding: 1em 0; /* Padding for header */
-    text-align: center; /* Center align text */
-    position: fixed; /* Fix the header to the top */
-    width: 100%; /* Full width header */
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1em 0;
+    text-align: center;
+    position: fixed;
+    width: 100%;
     top: 0;
-    z-index: 1000; /* Ensure it stays on top */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for the header */
+    z-index: 1000;
 }
 
-/* Navigation links */
-nav.links ul {
-    list-style: none; /* Remove default list styles */
+nav ul {
+    list-style: none;
     margin: 0;
     padding: 0;
-    display: flex; /* Display links in a row */
-    justify-content: center; /* Center the links */
+    display: flex;
+    justify-content: center;
 }
 
-nav.links li {
-    margin: 0 20px; /* Margin between links */
+nav li {
+    margin: 0 20px;
 }
 
-nav.links a {
-    color: #fff; /* White link color */
-    text-decoration: none; /* Remove underline */
-    font-weight: bold; /* Bold text */
-    transition: color 0.3s; /* Smooth color transition */
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease-in-out;
 }
 
-nav.links a:hover {
-    color: #ff6347; /* Hover color */
+nav a:hover {
+    color: #ff6347;
 }
 
-nav.links .active {
-    color: #ff6347; /* Active link color */
+nav .current {
+    color: #ff6347;
 }
 
-/* Main section styles */
-.main-bit {
-    background-image: url('secure-background.jpg'); /* Background image */
-    background-size: cover; /* Cover entire section */
-    background-position: center; /* Center the background image */
-    height: 70vh; /* Increase height of main section */
+.mainbit {
+    height: 70vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
-    color: #fff; /* White text color */
-    padding: 0 20px; /* Padding inside the main section */
-    transition: background-image 0.5s ease-in-out; /* Smooth background transition */
-    margin: 0 10%; /* Margin to keep some color visible on sides */
+    color: #ffffff;
+    padding: 0 20px;
+    margin: 0 10%
 }
 
-.main-bit h1 {
-    font-size: 48px; /* Large font size for heading */
+.mainbit h1 {
+    font-size: 48px;
     margin: 0;
-    text-shadow: 2px 2px 4px #000; /* Shadow for text */
-    animation: fadeIn 2s ease-in-out; /* Fade-in animation */
+    text-shadow: 2px 2px 4px #000000;
+    animation: fadein 2s ease-in-out;
 }
 
-.main-bit p {
-    font-size: 24px; /* Font size for paragraph */
+.mainbit p {
+    font-size: 24px;
     margin: 10px 0;
-    text-shadow: 1px 1px 2px #000; /* Shadow for text */
-    animation: fadeIn 2.5s ease-in-out; /* Fade-in animation */
+    text-shadow: 1px 1px 2px #000000;
+    animation: fadein 2.5s ease-in-out;
 }
 
-/* Download section styles */
-.download-section {
-    padding: 40px 20px; /* Padding for the section */
-    background-color: #fff; /* White background */
-    border-top: 3px solid #000; /* Top border */
-    max-width: 800px; /* Max width for content */
-    margin: 40px auto; /* Center the section */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for the section */
-    border-radius: 10px; /* Rounded corners */
+.download-link {
+    background: #ff6347;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    text-decoration: none;
 }
 
-.download-section h2 {
-    text-align: center; /* Center align text */
-    font-size: 32px; /* Font size for heading */
-    margin-bottom: 20px; /* Margin below heading */
-    color: #333; /* Dark text color */
+.download-link:hover {
+    background-color: #e5533d;
 }
 
-.download-section p {
-    font-size: 18px; /* Font size for paragraph */
-    color: #666; /* Gray text color */
-    line-height: 1.6; /* Line height */
-    margin-bottom: 20px; /* Margin below paragraph */
-    text-align: center; /* Center align text */
+.stuff {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    max-width: 800px;
+    margin: 40px auto;
+    box-shadow: 0 4px 8px #000000;
+    border-radius: 10px;
+    align-items: center
 }
 
-/* Info box styles */
-.info {
+.stuff h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+.stuff p {
+    font-size: 18px;
+    color: #000000;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.fancy-box {
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 600px; /* Max width for content */
-    margin-bottom: 20px; /* Margin below each info box */
-    padding: 20px; /* Padding inside each info box */
-    background-color: #fff; /* White background */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow for the box */
-    opacity: 0; /* Initially hidden */
-    transform: translateY(100px); /* Initial position */
-    transition: all 1s ease; /* Smooth transition */
+    max-width: 600px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px #000000;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all 1s ease-in-out;
 }
 
-.info.visible {
-    opacity: 1; /* Visible when in view */
-    transform: translateY(0); /* Move to final position */
+.fancy-box.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
-.info .text, .info .image {
-    flex: 1; /* Flex to fill available space */
-    padding: 20px; /* Padding inside each element */
+.fancy-box .text, .fancy-box .picture{
+    flex: 1;
+    padding: 20px;
 }
 
-.info .text {
-    order: 1; /* Order for text */
+.fancy-box .text {
+    order: 1;
 }
 
-.info .image {
-    order: 2; /* Order for image */
+.fancy-box .picture {
+    order: 2
 }
 
-.info:nth-child(even) .text {
-    order: 2; /* Swap order for even info boxes */
+.fancy-box:nth-child(even) .text {
+    order: 2;
 }
 
-.info:nth-child(even) .image {
-    order: 1; /* Swap order for even info boxes */
+.fancy-box:nth-child(even) .picture {
+    order: 1;
 }
 
-.info img {
-    width: 100%; /* Full width image */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow for image */
+.fancy-box img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px #000000;
 }
 
-/* Download button styles */
-.download-button {
-    background: #ff6347; /* Button background color */
-    color: #fff; /* Button text color */
-    border: none; /* Remove border */
-    padding: 15px 30px; /* Padding for button */
-    font-size: 18px; /* Font size for button text */
-    cursor: pointer; /* Pointer cursor */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s; /* Smooth background color transition */
-    text-decoration: none; /* Remove underline */
-    margin-top: 20px; /* Margin above button */
+.info {
+    background: #ff6347;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    margin-top: 20px;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
-.download-button:hover {
-    background-color: #e5533d; /* Hover background color */
+.info:hover {
+    background-color: #e5533d;
 }
 
-/* Footer styles */
+.download {
+    padding: 40px 20px;
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    max-width: 800px;
+    margin: 40px auto 0;
+    box-shadow: 0 4px 8px #000000;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+}
+
+.download h2 {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+    color: #000000;
+    padding-bottom: 20px;
+}
+
 footer {
-    background-color: #000; /* Black background */
-    color: #fff; /* White text color */
-    padding: 1em; /* Padding for footer */
-    text-align: center; /* Center align text */
-    width: 100%; /* Full width footer */
-    margin-top: auto; /* Push footer to bottom */
-    font-size: 15px; /* Font size for footer text */
+    background-color: #000000;
+    color: #ffffff;
+    padding: 1em;
+    text-align: center;
+    width: 100%;
+    margin-top: 0;
+    font-size: 15px;
 }
 
-@keyframes fadeIn {
+@keyframes fadein {
     from {
-        opacity: 0; /* Start with opacity 0 */
+        opacity: 0;
     }
     to {
-        opacity: 1; /* End with opacity 1 */
+        opacity: 1;
     }
 }
