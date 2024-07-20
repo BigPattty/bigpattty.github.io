@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const infoBoxes = document.querySelectorAll('.info');
+    const infoBoxes = document.querySelectorAll('.fancy-box');
     
     const onScroll = () => {
         const scrollPos = window.scrollY + window.innerHeight;
