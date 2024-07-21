@@ -59,7 +59,7 @@ async function userlogin(event) {
             }, 8000);
             setTimeout(() => {
                 window.location.href = 'reg-confirm-2.html';
-            }, 1000)
+            }, 1000);
         } else {
             const errordata = await response.json();
             console.error('Github API error:', errordata);
