@@ -61,7 +61,6 @@ async function userlogin(event) {
                     window.location.href = 'reg-confirm-2.html';
                 }, 10000)
             }, 8000);
-
         } else {
             const errordata = await response.json();
             console.error('Github API error:', errordata);
