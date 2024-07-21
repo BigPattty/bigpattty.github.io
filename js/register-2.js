@@ -19,7 +19,7 @@ async function userlogin(event) {
     // Start loading animation
     button.classList.add('loading');
     button.querySelector('.text').style.opacity = '0';
-    resultDiv.classList.add('hidden'); // Hide previous result messages
+    // resultDiv.classList.add('hidden'); // Hide previous result messages
 
     if (password !== conpassword) {
         alert('Looks like your passwords are different!');
