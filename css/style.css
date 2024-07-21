@@ -8,6 +8,8 @@ body {
     flex-direction: column;
     min-height: 100vh;
     padding-top: 80px;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 header {
@@ -19,6 +21,7 @@ header {
     width: 100%;
     top: 0;
     z-index: 1000;
+    
 }
 
 nav ul {
