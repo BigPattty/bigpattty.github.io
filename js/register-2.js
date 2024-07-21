@@ -59,7 +59,7 @@ async function userlogin(event) {
 
                 setTimeout(() => {
                     window.location.href = 'reg-confirm-2.html';
-                }, 10000)
+                }, 9000)
             }, 8000);
         } else {
             const errordata = await response.json();
@@ -76,5 +76,5 @@ async function userlogin(event) {
     setTimeout(() => {
         button.classList.remove('success', 'error');
         button.querySelector('.text').style.opacity = '1';
-    }, 15000);
+    }, 8000);
 }
