@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!username) {
         // Redirect to login if not logged in
-        window.location.href = 'login.html';
+        window.location.href = 'login-2.html';
         return;
     }
 
@@ -22,5 +22,5 @@ function logoutUser(event) {
     sessionStorage.clear();
     
     // Redirect to login after logout
-    window.location.href = 'login.html';
+    window.location.href = 'index.html';
 }

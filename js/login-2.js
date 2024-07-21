@@ -20,7 +20,7 @@ async function userlogin(event) {
             result.textContent = "We're in! Redirecting...";
             result.classList.remove('hidden');
             setTimeout(() => {
-                window.location.href = 'portal-2.html';
+                window.location.href = 'portal.html';
             }, 500);
         } else {
             const errordata = await response.json();
