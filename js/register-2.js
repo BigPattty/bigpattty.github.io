@@ -38,7 +38,7 @@ async function userlogin(event) {
 
 
     try {
-        const response = await fetch('https://api.github.com/repos/bigpattty/user_data/issues', {
+        const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
             method: 'POST',
             headers: {
                 'Authorization': `token ${decryptedkey}`,
