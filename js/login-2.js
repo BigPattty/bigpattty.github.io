@@ -1,12 +1,12 @@
-async function loginuser(event) {
+async function userlogin(event) {
     event.preventDefault();
 
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
-    const message = document.getElementById('message');
+    const result = document.getElementById('result');
 
     try {
-        const repsonse = await fetch('https://login-data-04911d02a754.herokuapp.com/login', {
+        const response = await fetch('https://login-data-04911d02a754.herokuapp.com/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -15,22 +15,23 @@ async function loginuser(event) {
         });
 
         if (response.ok) {
-            messageElement.classList.add('success');
-            messageElement.textContent = 'Login Successful. Sending you in...';
-            messageElement.classList.remove('hidden');
+            sessionStorage.setItem('username', username)
+            result.classList.add('success');
+            result.textContent = "We're in! Redirecting...";
+            result.classList.remove('hidden');
             setTimeout(() => {
                 window.location.href = 'portal-2.html';
             }, 500);
         } else {
-            const errorinfo = await response.json();
-            messageElement.classList.add('error');
-            messageElement.textContent = errorinfo.message || 'Invalid Username or Password. Please try again!';
-            messageElement.classList.remove('hidden');
+            const errordata = await response.json();
+            result.classList.add('error');
+            result.textContent = errordata.message || "Oh no! Check your details and try again!";
+            result.classList.remove('hidden');
         }
     } catch (error) {
         console.error('Error:', error);
-        messageElement.classList.add('error');
-        messageElement.textContent = 'Error Logging In';
-        messageElement.classList.remove('hidden');
+        result.classList.add('error');
+        result.textContent = "Whoops, looks like it's not working! Try again later!";
+        result.classList.remove('hidden');
     }
 }

@@ -4,6 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Login Solutions - Login</title>
         <link rel="stylesheet" href="login-2.css">
+        <script src="js/login-2.js"></script>
     </head>
     <body>
         <div class="bigbox">
@@ -26,41 +27,5 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            async function userlogin(event) {
-                event.preventDefault();
-
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-                const result = document.getElementById('result');
-
-                try {
-                    const response = await fetch('https://login-data-04911d02a754.herokuapp.com/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({ username, password })
-                    });
-
-                    if (response.ok) {
-                        result.classList.add('success');
-                        result.textContent = "We're in! Redirecting...";
-                        result.classList.remove('hidden');
-                        setTimeout(() => {
-                            window.location.href = 'portal-2.html';
-                        }, 500);
-                    } else {
-                        const errordata = await response.json();
-                        result.classList.add('error');
-                        result.textContent = errordata.message || "Oh no! Check your details and try again!";
-                        result.classList.remove('hidden');
-                    }
-                } catch (error) {
-                    
-                }
-            }
-        </script>
     </body>
 </html>
