@@ -1,11 +1,3 @@
-const encryptedkey = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ==";
-const passphrase = 'Patty1703!';
-
-function decryptkey(token, passphrase) {
-    const bytes = CryptoJS.AES.decrypt(token, passphrase);
-    return bytes.toString(CryptoJS.enc.Utf8);
-}
-
 async function userlogin(event) {
     event.preventDefault();
 
@@ -19,11 +11,11 @@ async function userlogin(event) {
     // Start loading animation
     button.classList.add('loading');
     button.querySelector('.text').style.opacity = '0';
-    // resultDiv.classList.add('hidden'); // Hide previous result messages
 
     if (password !== conpassword) {
         alert('Looks like your passwords are different!');
         button.classList.remove('loading');
+        button.querySelector('.text').style.opacity = '1';
         return;
     }
 
@@ -35,7 +27,6 @@ async function userlogin(event) {
     };
 
     const decryptedkey = decryptkey(encryptedkey, passphrase);
-
 
     try {
         const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
@@ -50,30 +41,38 @@ async function userlogin(event) {
             })
         });
 
-        // button.classList.remove('loading');
         if (response.ok) {
-            // button.classList.add('success');
+            // Set a timeout to allow the loading animation to complete
             setTimeout(() => {
                 button.classList.remove('loading');
                 button.classList.add('success');
-            }, 8000);
-            setTimeout(() => {
-                window.location.href = 'reg-confirm-2.html';
-            }, 10000);
+
+                // Set another timeout to allow the success animation to complete
+                setTimeout(() => {
+                    window.location.href = 'reg-confirm-2.html';
+                }, 2000); // Adjust this time based on the duration of your success animation
+            }, 3000); // Adjust this time based on the duration of your loading animation
         } else {
             const errordata = await response.json();
             console.error('Github API error:', errordata);
             button.classList.remove('loading');
             button.classList.add('error');
+
+            // Reset the button after showing the error
+            setTimeout(() => {
+                button.classList.remove('error');
+                button.querySelector('.text').style.opacity = '1';
+            }, 3000); // Adjust this time based on the duration of your error animation
         }
     } catch (error) {
         console.error('Error:', error);
         button.classList.remove('loading');
         button.classList.add('error');
-    }
 
-    setTimeout(() => {
-        button.classList.remove('success', 'error');
-        button.querySelector('.text').style.opacity = '1';
-    }, 3000);
+        // Reset the button after showing the error
+        setTimeout(() => {
+            button.classList.remove('error');
+            button.querySelector('.text').style.opacity = '1';
+        }, 3000); // Adjust this time based on the duration of your error animation
+    }
 }
