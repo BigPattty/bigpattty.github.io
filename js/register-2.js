@@ -75,5 +75,5 @@ async function userlogin(event) {
     setTimeout(() => {
         button.classList.remove('success', 'error');
         button.querySelector('.text').style.opacity = '1';
-    }, 10000);
+    }, 3000);
 }
