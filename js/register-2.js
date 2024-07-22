@@ -56,11 +56,10 @@ async function userlogin(event) {
             setTimeout(() => {
                 button.classList.remove('loading');
                 button.classList.add('success');
-
-                setTimeout(() => {
-                    window.location.href = 'reg-confirm-2.html';
-                }, 10000)
             }, 8000);
+            setTimeout(() => {
+                window.location.href = 'reg-confirm-2.html';
+            }, 10000);
         } else {
             const errordata = await response.json();
             console.error('Github API error:', errordata);
