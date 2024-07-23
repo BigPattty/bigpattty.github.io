@@ -10,6 +10,7 @@ body {
     align-items: center;
     height: 100vh;
     background: linear-gradient(135deg, #1d3492, #ffffff);
+    background-size: 400% 400%;
     font-family: 'Roboto', sans-serif;
     margin: 0;
 }
