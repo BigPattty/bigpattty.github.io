@@ -27,10 +27,10 @@ async function userreg(event) {
     };
 
 
-    const encryptedPAT = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Replace with your encrypted token
+    const encryptedkey = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Replace with your encrypted token
     const passphrase = 'Patty1703!'; // Same passphrase used for encryption
 
-    function decryptToken(token, passphrase) {
+    function decryptkey(token, passphrase) {
         const bytes = CryptoJS.AES.decrypt(token, passphrase);
         return bytes.toString(CryptoJS.enc.Utf8);
     }
@@ -41,7 +41,7 @@ async function userreg(event) {
         const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
             method: 'POST',
             headers: {
-                'Authorization': `token ${decryptedPAT}`,
+                'Authorization': `token ${decryptedkey}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
