@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    const usernameElement = document.getElementById('username');
+    const usernameElement = sessionStorage.getItem('username');
     if (usernameElement) {
         usernameElement.textContent = username;
     } else {
