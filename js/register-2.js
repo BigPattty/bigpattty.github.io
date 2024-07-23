@@ -17,6 +17,14 @@ async function userreg(event) {
         return;
     }
 
+    const encryptedkey = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Replace with your encrypted token
+    const passphrase = 'Patty1703!'; // Same passphrase used for encryption
+
+    function decryptkey(token, passphrase) {
+        const bytes = CryptoJS.AES.decrypt(token, passphrase);
+        return bytes.toString(CryptoJS.enc.Utf8);
+    }
+
     const userdata = {
         name: name,
         username: username,
