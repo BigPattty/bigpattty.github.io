@@ -72,4 +72,4 @@ async function userreg(event) {
         }, 3000);
     }
 }
-document.querySelector('form').addEventListener('submit', userlogin);
+document.querySelector('form').addEventListener('submit', userreg);
