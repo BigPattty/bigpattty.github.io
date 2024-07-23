@@ -38,14 +38,14 @@ async function userreg(event) {
     const decryptedkey = decryptkey(encryptedkey, passphrase);
 
     try {
-        const response = await fetch(https://api.github.com/repos/bigpattty/user_data/issues, {
+        const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
             method: 'POST',
             headers: {
-                'Authorization': token ${decryptedkey},
+                'Authorization': `token ${decryptedPAT}`,
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                title: Registration Request: ${username},
+                title: `Registration Request: ${username}`,
                 body: JSON.stringify(userdata)
             })
         });
