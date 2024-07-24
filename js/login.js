@@ -1,16 +1,15 @@
 async function userlogin(event) {
     event.preventDefault();
 
+    // Saves the username and password as local variables
     const button = event.target.querySelector('button');
-    const resultDiv = document.getElementById('result');
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
-    button.classList.add('loading');
+    button.classList.add('loading'); // Starts my loading animation when the button is clicked
     button.querySelector('.text').style.opacity = '0';
-    resultDiv.classList.add('hidden');
 
-    try {
+    try { // Connects to my server to verify the data entered is correct/registered
         const response = await fetch('https://login-data-04911d02a754.herokuapp.com/login', {
             method: 'POST',
             headers: {

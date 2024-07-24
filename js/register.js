@@ -58,7 +58,7 @@ async function userreg(event) {
 
                 // Set another timeout to allow the success animation to complete
                 setTimeout(() => {
-                    window.location.href = 'reg-confirm-2.html';
+                    window.location.href = 'reg-confirm.html';
                 }, 1500); // Adjust this time based on the duration of your success animation
             }, 8000); // Adjust this time based on the duration of your loading animation
         } else {
