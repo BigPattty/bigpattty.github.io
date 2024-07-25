@@ -1,4 +1,6 @@
-body {
+/* This whole code controls how the main website looks */
+
+body { 
     font-family: "Roboto", sans-serif;
     margin: 0;
     padding: 0;
@@ -143,6 +145,20 @@ nav .current {
     transform: translateY(0);
 }
 
+/* The following 5 definitions create like a zig-zag affect on the pictures
+
+eg.
+
+box 1
+text picture
+box 2
+picture text
+box 3
+text picture
+box 4
+picture text
+
+With every even numbered box being switched around */ 
 .fancy-box .text, .fancy-box .picture{
     flex: 1;
     padding: 20px;
@@ -216,6 +232,8 @@ footer {
     margin-top: 0;
     font-size: 15px;
 }
+
+/* The below controls the text at the start of the screen that fades in when you access the page */
 
 @keyframes fadein {
     from {

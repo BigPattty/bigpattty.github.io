@@ -19,13 +19,13 @@ async function userlogin(event) {
         });
         
         button.classList.remove('loading');
-        if (response.ok) {
+        if (response.ok) { // If every checks out, it lets the user in
             sessionStorage.setItem('username', username);
             button.classList.add('success');
             setTimeout(() => {
                 window.location.href = 'portal.html';
             }, 1000);
-        } else {
+        } else { // And stops them if something is fishy
             const errordata = await response.json();
             button.classList.add('error');
         }
@@ -35,8 +35,8 @@ async function userlogin(event) {
         button.classList.add('error');
     }
 
-    setTimeout(() => {
-        button.classList.remove('success', 'error');
+    setTimeout(() => { // Removes the error cross after 3 seconds
+        button.classList.remove('error');
         button.querySelector('.text').style.opacity = '1';
     }, 3000);
 }

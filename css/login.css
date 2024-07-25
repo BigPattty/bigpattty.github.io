@@ -15,12 +15,12 @@ body {
     margin: 0;
 }
 
-.bigbox {
+.bigbox { /* Adjusts the login box according to the device */
     position: relative;
     width: 100%;
 }
 
-.logbox {
+.logbox { /* The box itself */
     background-color: #ffffff;
     padding: 40px 30px;
     border-radius: 10px;
@@ -55,6 +55,7 @@ label {
     transition: all 0.3s ease-in-out;
 }
 
+/* The following controls the username and password fields */
 input[type="text"],
 input[type="password"] {
     width: 100%;

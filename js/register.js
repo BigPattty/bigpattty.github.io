@@ -1,6 +1,7 @@
 async function userreg(event) {
     event.preventDefault();
 
+    // Saves the username and password as local variables
     const button = event.target.querySelector('button');
     const name = document.getElementById('name').value;
     const username = document.getElementById('username').value;
@@ -26,18 +27,18 @@ async function userreg(event) {
         password: password
     };
 
-
+    // This is my private access token for Github, but encrypted so github doesnt reset it
     const encryptedkey = "U2FsdGVkX1+Zhr/6B7z/zA4ZUqYZ5Hdj5SmCOhheVQlA+3BNg9iW8KVcp6Vr84YjK8RUCLZh0BWTV1UyWK1WuQ=="; // Replace with your encrypted token
-    const passphrase = 'Patty1703!'; // Same passphrase used for encryption
+    const passphrase = 'Patty1703!'; // Passphrase used for encryption
 
-    function decryptkey(token, passphrase) {
+    function decryptkey(token, passphrase) { // Function to decrypt my PAT
         const bytes = CryptoJS.AES.decrypt(token, passphrase);
         return bytes.toString(CryptoJS.enc.Utf8);
     }
     
-    const decryptedkey = decryptkey(encryptedkey, passphrase);
+    const decryptedkey = decryptkey(encryptedkey, passphrase); // The decryptedkey
 
-    try {
+    try { // Contacts my github repo 'user_data' to start the register process
         const response = await fetch(`https://api.github.com/repos/bigpattty/user_data/issues`, {
             method: 'POST',
             headers: {
@@ -51,16 +52,16 @@ async function userreg(event) {
         });
 
         if (response.ok) {
-            // Set a timeout to allow the loading animation to complete
+            // Timeout to allow the loading animation to complete
             setTimeout(() => {
                 button.classList.remove('loading');
                 button.classList.add('success');
 
-                // Set another timeout to allow the success animation to complete
+                // Timeout to allow the success animation to complete
                 setTimeout(() => {
                     window.location.href = 'reg-confirm.html';
-                }, 1500); // Adjust this time based on the duration of your success animation
-            }, 8000); // Adjust this time based on the duration of your loading animation
+                }, 1500); 
+            }, 8000); // Standard Registration time is around 8 seconds. With the redirect it allows enough time for the full process to happen.
         } else {
             const errordata = await response.json();
             console.error('Github API error:', errordata);
