@@ -5,6 +5,7 @@
         <title>Login Solutions - Register</title>
         <link rel="stylesheet" href="css/register.css">
         <script src="js/register.js" defer></script>
+        <!-- The below script is the Javascript module that is used to decrypt my PAT in regsiter.js-->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     </head>
     <body>
@@ -12,7 +13,7 @@
             <div class="logbox">
                 <h2>Register</h2>
                 <br>
-                <form id="logcollect" onsubmit="userreg(event)">
+                <form id="logcollect" onsubmit="userreg(event)"> <!-- Runs register.js when the register button is clicked-->
                     <div class="textbox">
                         <input type="text" id="username" name="username" required placeholder=" ">
                         <label for="username">Username (for logging in)</label>
@@ -36,6 +37,7 @@
                     <button type="submit">
                         <span class="text">I'm ready to register</span>
                         <div class="spinner"></div>
+                        <!-- Provides space for the button animations to run and the guidelines it can run in -->
                         <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                             <path fill="none" d="M14 27 l10 10 l20 -20"></path>
                         </svg>
@@ -44,7 +46,7 @@
                         </svg>
                     </button>
                 </form>
-                <div id="result" class="hidden"></div>
+                <div id="result" class="hidden"></div> <!-- Allows me to hide stuff (if needed of course) -->
                 <div class="login">
                     Have you already registered? <a href="login.html">Maybe go here instead!</a>
                 </div>
